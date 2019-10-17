@@ -32,3 +32,26 @@ describe('GET /', () => {
       });
   });
 });
+
+describe('GET /cities', () => {
+  // should return http 200 ok
+  it('should return http 200 status code', async () => {
+    const response = await request(server).get('/cities');
+
+    expect(response.status).toBe(200);
+  });
+
+  // should return json
+  it('should return json', async () => {
+    const response = await request(server).get('/cities');
+
+    expect(response.type).toMatch(/json/i);
+  });
+
+  // should return cities array
+  it('should return cities array', async () => {
+    const response = await request(server).get('/cities');
+
+    expect(typeof response.body).toBe('object');
+  });
+});
