@@ -52,6 +52,6 @@ describe('GET /cities', () => {
   it('should return cities array', async () => {
     const response = await request(server).get('/cities');
 
-    expect(typeof response.body).toBe('object');
+    expect(response.body[0]).toHaveProperty('city');
   });
 });
