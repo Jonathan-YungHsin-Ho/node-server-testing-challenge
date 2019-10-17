@@ -48,8 +48,8 @@ describe('GET /cities', () => {
     expect(response.type).toMatch(/json/i);
   });
 
-  // should return cities array
-  it('should return cities array', async () => {
+  // should return array of city objects
+  it('should return array of city objects', async () => {
     const response = await request(server).get('/cities');
 
     expect(response.body[0]).toHaveProperty('city');

@@ -7,7 +7,13 @@ module.exports = {
 };
 
 async function add(city) {
-  return null;
+  return db('cities')
+    .insert(city, 'id')
+    .then(ids =>
+      db('cities')
+        .where({ id: ids[0] })
+        .first(),
+    );
 }
 
 async function remove(id) {
