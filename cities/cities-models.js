@@ -17,7 +17,7 @@ async function add(city) {
 }
 
 async function remove(id) {
-  return null;
+  return db('cities').del(id);
 }
 
 function getAll() {

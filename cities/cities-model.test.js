@@ -11,7 +11,7 @@ describe('cities model', () => {
   });
 
   describe('add()', () => {
-    it('should database length by 1', async () => {
+    it('should increases database length by 1', async () => {
       const records = await db('cities');
       expect(records).toHaveLength(0);
 
@@ -25,18 +25,32 @@ describe('cities model', () => {
       await Cities.add({ city: 'Brooklyn' });
 
       const cities = await db('cities');
-
       expect(cities[0]).toHaveProperty('city');
     });
 
     it('should add specific city to database', async () => {
-      await Cities.add({ city: 'Brooklyn' });
+      const city = await Cities.add({ city: 'Brooklyn' });
+
+      expect(city.city).toBe('Brooklyn');
+    });
+  });
+
+  describe('remove()', () => {
+    it('should remove an added city', async () => {
+      const records = await db('cities').insert({ city: 'Brooklyn' }, 'id');
+      expect(records).toHaveLength(1);
+
+      await Cities.remove(1);
 
       const cities = await db('cities');
-
-      expect(cities[0]['city']).toBe('Brooklyn');
+      expect(cities).toHaveLength(0);
     });
 
-    // describe('remove()', () => {});
+    it('should show number of cities deleted', async () => {
+      await Cities.add({ city: 'Brooklyn' });
+
+      const deleted = await Cities.remove(1);
+      expect(deleted).toBe(1);
+    });
   });
 });
